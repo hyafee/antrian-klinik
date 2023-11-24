@@ -27,6 +27,9 @@ export default {
     mounted() {
         this.loadAntrianData();
         this.loadAntrianNow();
+
+        this.checkAndClearLocalStorage();
+        setInterval(this.checkAndClearLocalStorage, 60000);
     },
     computed: {
         selisih() {
@@ -63,7 +66,17 @@ export default {
                 console.error('Error fetching latest queue number:', error);
                 // Handle errors as needed
             }
-        }
+        },
+        checkAndClearLocalStorage() {
+            const currentTime = new Date();
+            const hours = currentTime.getHours();
+            const minutes = currentTime.getMinutes();
+
+            if (hours === 0 && minutes === 0) {
+                // Clear localStorage
+                localStorage.removeItem('antrianData');
+            }
+        },
     }
 };
 </script>
