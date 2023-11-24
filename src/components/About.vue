@@ -38,6 +38,8 @@ export default {
             <div class="mt-5">
                 <p>Buka Hari <span class="font-bold">{{ hariBuka }}</span></p>
                 <p>Pukul <span class="font-bold">{{ jamBuka }}</span> WIB</p>
+                <p class="mt-5 font-bold">HARI AHAD DAN HARI BESAR TUTUP
+                </p>
             </div>
             <p class="py-5">{{ alamat }}</p>
         </div>
