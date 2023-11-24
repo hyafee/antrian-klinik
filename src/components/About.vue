@@ -35,6 +35,7 @@ export default {
     <div>
         <div class="w-full rounded bg-green-dark text-white text-center text-xs">
             <p class="font-bold text-sm pt-5">INFORMASI KLINIK</p>
+            <hr class="opacity-50 mt-5">
             <div class="mt-5">
                 <p>Buka Hari <span class="font-bold">{{ hariBuka }}</span></p>
                 <p>Pukul <span class="font-bold">{{ jamBuka }}</span> WIB</p>

@@ -9,6 +9,7 @@ module.exports = {
       'green-light': '#009688',
       'white': '#fff',
       'black': '#000',
+      'grey': '#ebf1ed'
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'],

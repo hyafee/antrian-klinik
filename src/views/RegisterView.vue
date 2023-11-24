@@ -16,8 +16,12 @@ export default {
     methods: {
         async daftarPasien() {
             this.loading = true;
-
-            if (!this.$refs.nama.value || !this.$refs.alamat.value || !this.$refs.umur.value || !document.querySelector('input[name="jenis_kelamin"]:checked')) {
+            if (
+                !this.$refs.nama.value.trim() ||
+                !this.$refs.alamat.value.trim() ||
+                !this.$refs.umur.value.trim() ||
+                !document.querySelector('input[name="jenis_kelamin"]:checked')
+            ) {
                 this.loading = false;
                 return;
             }
@@ -44,6 +48,7 @@ export default {
     }
 };
 </script>
+
 
 <template>
     <div v-if="loading">
@@ -84,20 +89,20 @@ export default {
                 <img class="rounded-full bg-green-light" src="@/assets/images/antrian-rounded.svg" alt="">
             </div>
             <p class="text-sm text-center">DAFTAR NOMOR <span class="font-bold">ANTRIAN</span></p>
-            <form @submit.prevent="daftarPasien()" class="text-xs mt-10 px-5">
+            <form @submit.prevent="daftarPasien()" class="text-xs mt-10 px-5" autocomplete="false">
                 <div class="flex flex-col">
                     <label for="nama" class="font-bold">Nama Lengkap :</label>
-                    <input required ref="nama" id="nama" type="text"
-                        class="mt-2 border input-field rounded p-2 border-green-light outline-green-dark autofill:!bg-black">
+                    <input autocomplete="false" required ref="nama" id="nama" type="text"
+                        class="mt-2 border input-field rounded p-2 border-green-light outline-green-dark">
                 </div>
                 <div class="flex flex-col mt-2">
                     <label for="alamat" class="font-bold">Alamat :</label>
-                    <input required ref="alamat" id="alamat" type="text"
+                    <input autocomplete="false" required ref="alamat" id="alamat" type="text"
                         class="mt-2 border input-field rounded p-2 border-green-light outline-green-dark">
                 </div>
                 <div class="flex flex-col mt-2">
                     <label for="umur" class="font-bold">Umur :</label>
-                    <input required ref="umur" id="umur" type="number"
+                    <input autocomplete="false" required ref="umur" id="umur" type="number"
                         class="mt-2 border input-field rounded p-2 border-green-light outline-green-dark">
                 </div>
                 <div class="flex mt-4 items-center">
