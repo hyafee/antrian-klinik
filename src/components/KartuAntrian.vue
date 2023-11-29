@@ -16,9 +16,10 @@
     </div>
 
     <div v-show="detail" @click="closeDetail"
-        class="absolute top-0 left-0 w-screen h-screen bg-black/70 flex justify-center items-center z-20">
+        class="absolute top-0 left-0 w-screen min-h-screen bg-black/70 flex justify-center items-center z-20 overflow-hidden">
         <div id="detailCard" class="bg-white text-green-dark h-fit rounded w-11/12">
-            <div class="header font-bold text-sm rounded-t bg-green-light p-5 text-white text-center">INFORMASI DATA PASIEN
+            <div class="header font-bold text-sm rounded-t bg-green-light p-5 text-white text-center">INFORMASI DATA
+                PASIEN
             </div>
             <div class="px-5 my-2 flex flex-col gap-1 font-bold">
                 <div class="flex justify-between py-1">
@@ -80,9 +81,26 @@ export default {
     methods: {
         showDetail() {
             this.detail = true;
+            this.disableScroll();
+            this.scrollToTop();
+        },
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         },
         closeDetail() {
             this.detail = false;
+
+            this.enableScroll();
+
+        }, disableScroll() {
+            document.body.style.overflow = 'hidden';
+        },
+
+        enableScroll() {
+            document.body.style.overflow = 'auto';
         },
         async loadAntrianData() {
             const apiUrl = 'http://127.0.0.1:8000/api/pasien/search';
