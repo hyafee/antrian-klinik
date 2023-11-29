@@ -9,7 +9,8 @@ import Loading from '../components/Loading.vue'
     <div v-if="this.$store.state.loadingAbout || this.$store.state.loadingAntrian || this.$store.state.loadingHeader">
         <Loading />
     </div>
-    <div class="text-xs text-white mt-5">
+    <div v-show="!(this.$store.state.loadingAbout || this.$store.state.loadingAntrian || this.$store.state.loadingHeader)"
+        class="text-xs text-white mt-5">
         <p class="text-center text-sm"><span class="font-bold">Berhasil</span> Ambil Nomor Antrian,</p>
         <KartuAntrian />
         <div class="w-11/12 mx-auto mt-5">

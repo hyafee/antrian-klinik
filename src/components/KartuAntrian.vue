@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -27,54 +29,46 @@ export default {
     mounted() {
         this.loadAntrianData();
         this.loadAntrianNow();
-
-        this.checkAndClearLocalStorage();
-        setInterval(this.checkAndClearLocalStorage, 60000);
     },
     computed: {
         selisih() {
-            // Calculate the difference between nomorAntrian and nomorAntrianNow
             const hasil = this.nomorAntrian - this.nomorAntrianNow;
             return hasil;
         }
     },
     methods: {
         async loadAntrianData() {
-            // Retrieve data from local storage
-            const antrianData = localStorage.getItem('antrianData');
+            const apiUrl = 'http://127.0.0.1:8000/api/pasien/search';
 
-            if (antrianData) {
-                // Parse the JSON data
-                const parsedData = JSON.parse(antrianData);
+            const patientData = localStorage.getItem('antrianData');
+            const parsedData = JSON.parse(patientData);
 
-                // Update component data
-                this.nomorAntrian = parsedData.data.queue_number;
-            } else {
-                // Handle the case when 'antrianData' is not present in local storage
-                console.error('Error: Data not found in local storage');
-            }
+            axios.get(apiUrl, {
+                params: {
+                    id: parsedData.data.id,
+                },
+            })
+                .then(response => {
+                    console.log(response.data.data.queue_number);
+                    if (response.status == 200) {
+                        this.nomorAntrian = response.data.data.queue_number;
+                        if (response.data.data.status_pemeriksaan == "Sudah Diperiksa") {
+                            localStorage.removeItem('antrianData');
+                        }
+                    }
+                })
+                .catch(error => {
+                    this.errorMessage = error.response ? error.response.data.message : error.message;
+                });
         },
         async loadAntrianNow() {
             try {
-                // Fetch the latest queue number from the API
                 const response = await fetch('http://127.0.0.1:8000/api/antrian/now');
                 const responseData = await response.json();
 
-                // Update component data
                 this.nomorAntrianNow = responseData.data.queue_number_now;
             } catch (error) {
                 console.error('Error fetching latest queue number:', error);
-                // Handle errors as needed
-            }
-        },
-        checkAndClearLocalStorage() {
-            const currentTime = new Date();
-            const hours = currentTime.getHours();
-            const minutes = currentTime.getMinutes();
-
-            if (hours === 0 && minutes === 0) {
-                // Clear localStorage
-                localStorage.removeItem('antrianData');
             }
         },
     }

@@ -8,7 +8,8 @@ import Loading from '../components/Loading.vue'
   <div v-if="this.$store.state.loadingAbout || this.$store.state.loadingAntrian || this.$store.state.loadingHeader">
     <Loading />
   </div>
-  <div class="flex flex-col h-screen pt-5">
+  <div v-show="!(this.$store.state.loadingAbout || this.$store.state.loadingAntrian || this.$store.state.loadingHeader)"
+    class="flex flex-col h-screen pt-5">
     <div class="flex-none">
       <p class="text-white text-sm text-center">Selamat <span class="font-bold"> Datang,</span></p>
       <Antrian />
