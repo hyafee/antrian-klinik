@@ -22,8 +22,9 @@ import Loading from '../components/Loading.vue'
         <div class="min-h-content bg-white rounded-t-3xl pt-2 mt-5 pb-5">
             <Antrian />
             <div class="w-11/12 mx-auto mt-5">
-                <p class="text-green-dark">Nomor antrian yang telah didapatkan akan dihapus dalam <span class="font-bold">
-                        1 x 24 jam </span>
+                <p class="text-green-dark">Nomor antrian yang telah didapatkan akan dihapus apabila pasien<span
+                        class="font-bold">
+                        Sudah Diperiksa</span>
                 </p>
             </div>
 
