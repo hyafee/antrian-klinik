@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             nomorAntrian: null,
-            totalAntri: null,
+            totalAntri: 0,
         };
     },
     mounted() {
@@ -52,6 +52,7 @@ export default {
         <hr class="opacity-50">
         <p class="p-10 text-7xl text-center">{{ nomorAntrian }}</p>
         <hr class="opacity-50">
-        <p class="p-2.5 text-xs text-center">{{ totalAntri }} <span class="font-normal"> Pasien sudah mendaftar</span></p>
+        <p class="p-2.5 text-xs text-center"> <span class="font-normal"> Jumlah pasien yang sudah mendaftar</span> {{
+            totalAntri }}</p>
     </div>
 </template>

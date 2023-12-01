@@ -114,19 +114,23 @@ export default {
                 },
             })
                 .then(response => {
-                    console.log(response.data.data.queue_number);
+                    console.log(response);
                     if (response.status == 200) {
                         this.nama = response.data.data.name;
                         this.alamat = response.data.data.address;
                         this.umur = response.data.data.old;
                         this.jenis_kelamin = response.data.data.gender;
                         this.nomorAntrian = response.data.data.queue_number;
+
                         if (response.data.data.status_pemeriksaan == "Sudah Diperiksa") {
                             localStorage.removeItem('antrianData');
                         }
+                    } else {
+                        localStorage.removeItem('antrianData');
                     }
                 })
                 .catch(error => {
+                    localStorage.removeItem('antrianData');
                     this.errorMessage = error.response ? error.response.data.message : error.message;
                 });
         },
