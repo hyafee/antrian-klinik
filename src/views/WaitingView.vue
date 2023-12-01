@@ -15,7 +15,7 @@ import Loading from '../components/Loading.vue'
         <KartuAntrian />
         <div class="w-11/12 mx-auto mt-5">
             <p class="text-white">Anda telah <span class="font-bold"> berhasil </span>mendapat nomor antrian,
-                silahkan tunjukkan pe petugas yang
+                silahkan tunjukkan ke petugas yang
                 ada.
             </p>
         </div>
