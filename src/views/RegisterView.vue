@@ -35,14 +35,31 @@ export default {
                 });
 
                 localStorage.setItem('antrianData', JSON.stringify(response.data));
-                this.status = "success";
+
+                this.$swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Pendaftaran berhasil, nomor antrian anda ' + response.data.data.queue_number,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    allowOutsideClick: true,
+                    isConfirmed: this.$router.push({ path: '/waiting' })
+                })
 
             } catch (error) {
-                this.status = "failed";
-
+                this.$swal.fire({
+                    title: 'Gagal!',
+                    text: 'Maaf saat ini klinik sedang tutup',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    allowOutsideClick: true,
+                    isConfirmed: this.$router.push({ path: '/' })
+                })
             } finally {
                 this.loading = false;
-
             }
         }
     }
@@ -53,21 +70,6 @@ export default {
 <template>
     <div v-if="loading">
         <Loading />
-    </div>
-    <div v-if="status == 'failed'"
-        class="absolute z-10 top-0 left-0 w-screen h-screen bg-white flex justify-center items-center">
-        <div class="flex flex-col items-center gap-16">
-            <img src="@/assets/images/denied.svg" alt="" class="w-8/12">
-            <div class="text-center">
-                <p class="text-green-dark text-xl font-bold">PENDAFTARAN GAGAL</p>
-                <p class=" mt-3 text-sm text-green-dark">Maaf saat ini klinik sedang tutup, silahkan daftar
-                    kembali
-                    apabila klinik sudah buka!</p>
-            </div>
-            <router-link to="/" class="w-full flex justify-center">
-                <button class="w-1/2 py-2 bg-green-light text-white rounded">Kembali</button>
-            </router-link>
-        </div>
     </div>
     <div v-if="status == 'success'"
         class="absolute z-10 top-0 left-0 w-screen h-screen bg-white flex justify-center items-center">
