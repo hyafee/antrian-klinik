@@ -14,43 +14,6 @@
             <button @click="showDetail" class="underline">Detail ></button>
         </div>
     </div>
-
-    <div v-show="detail" @click="closeDetail"
-        class="absolute top-0 left-0 w-screen min-h-screen bg-black/70 flex justify-center items-center z-20 overflow-hidden">
-        <div id="detailCard" class="bg-white text-green-dark h-fit rounded w-11/12">
-            <div class="header font-bold text-sm rounded-t bg-green-light p-5 text-white text-center">INFORMASI DATA
-                PASIEN
-            </div>
-            <div class="px-5 my-2 flex flex-col gap-1 font-bold">
-                <div class="flex justify-between py-1">
-                    <p>Nama Lengkap: </p>
-                    <p>{{ nama }}</p>
-                </div>
-                <hr class="opacity-20">
-                <div class="flex justify-between py-1">
-                    <p>Alamat: </p>
-                    <p>{{ alamat }}</p>
-                </div>
-                <hr class="opacity-20">
-                <div class="flex justify-between py-1">
-                    <p>Umur: </p>
-                    <p>{{ umur }}</p>
-                </div>
-                <hr class="opacity-20">
-
-                <div class="flex justify-between py-1">
-                    <p>Jenis Kelamin: </p>
-                    <p>{{ jenis_kelamin }}</p>
-                </div>
-                <hr class="opacity-20">
-
-                <div class="flex justify-between py-1">
-                    <p>No. Antrian: </p>
-                    <p>{{ nomorAntrian }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -80,27 +43,44 @@ export default {
     },
     methods: {
         showDetail() {
-            this.detail = true;
-            this.disableScroll();
-            this.scrollToTop();
-        },
-        scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        },
-        closeDetail() {
-            this.detail = false;
+            this.$swal.fire({
+                title: 'Data Pasien',
+                html: `<div class="px-5 my-2 flex flex-col gap-1 font-bold text-sm">
+                <div class="flex justify-between py-1">
+                    <p>Nama Lengkap: </p>
+                    <p>${this.nama}</p>
+                </div>
+                <hr class="opacity-20">
+                <div class="flex justify-between py-1">
+                    <p>Alamat: </p>
+                    <p>${this.alamat}</p>
+                </div>
+                <hr class="opacity-20">
+                <div class="flex justify-between py-1">
+                    <p>Umur: </p>
+                    <p>${this.umur}</p>
+                </div>
+                <hr class="opacity-20">
 
-            this.enableScroll();
+                <div class="flex justify-between py-1">
+                    <p>Jenis Kelamin: </p>
+                    <p>${this.jenis_kelamin}</p>
+                </div>
+                <hr class="opacity-20">
 
-        }, disableScroll() {
-            document.body.style.overflow = 'hidden';
-        },
+                <div class="flex justify-between py-1">
+                    <p>No. Antrian: </p>
+                    <p>${this.nomorAntrian}</p>
+                </div>
+                <hr class="opacity-20">
 
-        enableScroll() {
-            document.body.style.overflow = 'auto';
+            </div>`,
+                icon: 'info',
+                iconColor: '#337F89',
+                confirmButtonColor: '#009688',
+                timerProgressBar: true,
+                allowOutsideClick: true,
+            })
         },
         async loadAntrianData() {
             const apiUrl = 'http://127.0.0.1:8000/api/pasien/search';
